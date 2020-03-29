@@ -12,16 +12,16 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - uses: SuperPeterRui/issue-bot-2/template_store_pull@v0.1.0
+    - uses: SuperPeterRui/issue-bot-2/template_store_pull@master
       name: Fetch Template
       with:
         name: "python3-flask"
-    - uses: SuperPeterRui/issue-bot-2/cli-build@v0.1.0
+    - uses: SuperPeterRui/issue-bot-2/cli-build@master
       name: Build
       with:
         path: "wordcount.yml"
         tag: "sha"
-    - uses: SuperPeterRui/issue-bot-2/push@v0.1.0
+    - uses: SuperPeterRui/issue-bot-2/push@master
       name: Push image
       if: "success() && github.ref == 'refs/heads/master' "
       with:
