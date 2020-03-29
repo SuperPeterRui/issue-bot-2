@@ -16,7 +16,7 @@ jobs:
       name: Fetch Template
       with:
         name: "python3-flask"
-    - uses: SuperPeterRui/issue-bot-2/build@v0.1.0
+    - uses: SuperPeterRui/issue-bot-2/cli-build@v0.1.0
       name: Build
       with:
         path: "wordcount.yml"
