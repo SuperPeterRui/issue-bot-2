@@ -1,0 +1,29 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Login to Docker Hub
+      uses: actions/docker/login@master
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - uses: SuperPeterRui/issue-bot-2/template_store_pull@v0.1.0
+      name: Fetch Template
+      with:
+        name: "python3-flask"
+    - uses: SuperPeterRui/issue-bot-2/build@v0.1.0
+      name: Build
+      with:
+        path: "wordcount.yml"
+        tag: "sha"
+    - uses: SuperPeterRui/issue-bot-2/push@v0.1.0
+      name: Push image
+      if: "success() && github.ref == 'refs/heads/master' "
+      with:
+        path: "wordcount.yml"
+        tag: "sha"
